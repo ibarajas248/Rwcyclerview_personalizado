@@ -20,50 +20,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<String> listDatos;
+    /*ArrayList<String> listDatos;
     RecyclerView recycler;
     RequestQueue queue;
+*/
 
+    ArrayList<personaje>listaPersonajes;
+    RecyclerView recyclerPersonajes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recycler = findViewById(R.id.recyclerID);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        listDatos = new ArrayList<String>();
-        queue = Volley.newRequestQueue(this);
-        buscarProducto("http://khushiconfecciones.com//app_khushi/recycler.php");
+
+
+        listaPersonajes=new ArrayList<>();
+        recyclerPersonajes=findViewById(R.id.recyclerID);
+        recyclerPersonajes.setLayoutManager(new LinearLayoutManager(this));
+
+        llenarPersonajes();
+        AdaptadorPersonajes adapter=new AdaptadorPersonajes(listaPersonajes);
+        recyclerPersonajes.setAdapter(adapter);
     }
 
-    private void buscarProducto(String URL) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        String data1 = jsonObject.getString("nombre");
-                        String data2 = jsonObject.getString("id");
-                        String data3 = (data1+" "+data2);
-
-                        listDatos.add(data3);
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-                AdapterDatos adapter = new AdapterDatos(listDatos);
-                recycler.setAdapter(adapter);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        queue.add(jsonArrayRequest);
+    private void llenarPersonajes() {
+        listaPersonajes.add(new personaje("krusty","dekkfnlfke",R.drawable.krusti));
+        listaPersonajes.add(new personaje("bart","dekkfnlfke",R.drawable.bart));
+        listaPersonajes.add(new personaje("burns","dekkfnlfke",R.drawable.burns));
+        listaPersonajes.add(new personaje("flanders","dekkfnlfke",R.drawable.flanders));
+        listaPersonajes.add(new personaje("homero","dekkfnlfke",R.drawable.homero));
+        listaPersonajes.add(new personaje("lisa","dekkfnlfke",R.drawable.lisa));
+        listaPersonajes.add(new personaje("magie","dekkfnlfke",R.drawable.magie));
     }
+
+
 }
 
 
