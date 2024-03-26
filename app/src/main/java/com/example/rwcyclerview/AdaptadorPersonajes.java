@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonajes.viewHolderPersonajes> implements View.OnClickListener {
+public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonajes.viewHolderPersonajes>
+        implements View.OnClickListener {
 
     ArrayList<personaje>listaPersonajes;
+    //declaro el escuchador
     private View.OnClickListener listener;
-
+    // metodo contructor
     public AdaptadorPersonajes(ArrayList<personaje> listaPersonajes) {
         this.listaPersonajes = listaPersonajes;
     }
@@ -25,8 +27,9 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     public viewHolderPersonajes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_personaje,null,false);
 
-        
+        view.setOnClickListener(this);
         return new viewHolderPersonajes(view);
+
 
 
     }
@@ -45,9 +48,14 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
     public int getItemCount() {
         return listaPersonajes.size();
     }
-
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
+        if(listener!=null){
+            listener.onClick(view);
+        }
 
     }
 

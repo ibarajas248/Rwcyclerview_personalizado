@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -39,11 +40,20 @@ public class MainActivity extends AppCompatActivity {
 
         llenarPersonajes();
         AdaptadorPersonajes adapter=new AdaptadorPersonajes(listaPersonajes);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "selección: "+
+                            listaPersonajes.get(recyclerPersonajes.getChildAdapterPosition(v)).getNombre(),Toast.LENGTH_SHORT).show();
+            }
+        });
         recyclerPersonajes.setAdapter(adapter);
     }
 
     private void llenarPersonajes() {
-        listaPersonajes.add(new personaje("krusty","dekkfnlfke",R.drawable.krusti));
+
+        listaPersonajes.add(new personaje("krusty_lala","dekkfnlfke",R.drawable.krusti));
         listaPersonajes.add(new personaje("bart","dekkfnlfke",R.drawable.bart));
         listaPersonajes.add(new personaje("burns","dekkfnlfke",R.drawable.burns));
         listaPersonajes.add(new personaje("flanders","dekkfnlfke",R.drawable.flanders));

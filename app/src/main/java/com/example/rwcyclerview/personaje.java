@@ -5,7 +5,7 @@ public class personaje {
     private String info;
     private int foto;
 
-    public personaje(String nombre, String info, int foto) {
+    public personaje(String nombre, String info,     int foto) {
         this.nombre = nombre;
         this.info = info;
         this.foto = foto;
